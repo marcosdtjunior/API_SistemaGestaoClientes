@@ -160,7 +160,7 @@ const excluirCobranca = async (req, res) => {
             return res.status(404).json({ mensagem: 'Esta cobrança não existe no banco de dados.' });
         }
 
-        if (consulta.status === "Pendente") {
+        if (consulta.status !== "Paga") {
             return res.status(400).json({ mensagem: 'Esta cobrança não pode ser excluída!' });
         }
 

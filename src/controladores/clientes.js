@@ -46,13 +46,22 @@ const cadastrarCliente = async (req, res) => {
 
 const listarClientes = async (req, res) => {
     try {
+        let possuiCobrancaVencida = false;
+
         const clientes = await knex('clientes');
         for (let cliente of clientes) {
             const cobrancas = await knex('cobrancas').where('cliente_id', cliente.id);
             for (let cobranca of cobrancas) {
                 if (cobranca.status === 'Vencida') {
-                    await knex('clientes').update('status', 'Inadimplente').where('id', cliente.id);
+                    possuiCobrancaVencida = true;
+                    break;
                 }
+            }
+
+            if (possuiCobrancaVencida) {
+                await knex('clientes').update('status', 'Inadimplente').where('id', cliente.id);
+            } else {
+                await knex('clientes').update('status', 'Em dia').where('id', cliente.id);
             }
         }
 
