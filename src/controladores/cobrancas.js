@@ -46,13 +46,24 @@ const cadastrarCobranca = async (req, res) => {
 
 const listarCobrancas = async (req, res) => {
     try {
-        const consultaCobrancas = await knex('cobrancas').join('clientes', 'cobrancas.cliente_id', 'clientes.id').select(knex.ref('clientes.nome').as('nome_cliente'), 'cobrancas.id', 'cobrancas.valor', 'cobrancas.vencimento', 'cobrancas.status', 'cobrancas.descricao').orderBy('cobrancas.id');
 
-        if (consultaCobrancas.length === 0) {
+        const consultaCobrancas = await knex('cobrancas');
+
+        for (let cobranca of consultaCobrancas) {
+            const cobrancaEstaVencida = isBefore(new Date(cobranca.vencimento), new Date());
+
+            if (cobranca.status === 'Pendente' && cobrancaEstaVencida) {
+                await knex('cobrancas').update('status', 'Vencida').where('id', cobranca.id);
+            }
+        }
+
+        const listagemCobrancas = await knex('cobrancas').join('clientes', 'cobrancas.cliente_id', 'clientes.id').select(knex.ref('clientes.nome').as('nome_cliente'), 'cobrancas.id', 'cobrancas.valor', 'cobrancas.vencimento', 'cobrancas.status', 'cobrancas.descricao').orderBy('cobrancas.id');
+
+        if (listagemCobrancas.length === 0) {
             return res.status(404).json({ mensagem: 'Nenhuma cobrança foi encontrada.' });
         }
 
-        return res.status(200).json(consultaCobrancas);
+        return res.status(200).json(listagemCobrancas);
     } catch (error) {
         return res.status(500).json(error.message);
     }
