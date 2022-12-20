@@ -134,6 +134,10 @@ const atualizarCobranca = async (req, res) => {
             status = 'Vencida';
         }
 
+        if (status === 'Vencida' && !cobrancaEstaVencida) {
+            status = 'Pendente';
+        }
+
         const atualizacao = await knex('cobrancas').update({ descricao, status, valor, vencimento }).where({ id }).returning('*');
 
         if (atualizacao.length === 0) {
@@ -156,7 +160,7 @@ const excluirCobranca = async (req, res) => {
             return res.status(404).json({ mensagem: 'Esta cobrança não existe no banco de dados.' });
         }
 
-        if (consulta.status !== "Pendente") {
+        if (consulta.status === "Pendente") {
             return res.status(400).json({ mensagem: 'Esta cobrança não pode ser excluída!' });
         }
 
