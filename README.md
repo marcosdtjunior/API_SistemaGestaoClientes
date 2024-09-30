@@ -16,7 +16,7 @@ No fork de vocês, favor alterar este README para adicionar os links corresponde
 
 **Repositório de Frontend**: https://github.com/primitivoekater/front-integral-m05-desafio-t06
 
-**URL da aplicação funcionando**: https://inspetores-05.netlify.app/
+**URL da aplicação funcionando**: https://projeto-final-cubos-inspetores.vercel.app/
 
 ---
 
