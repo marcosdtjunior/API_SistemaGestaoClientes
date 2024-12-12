@@ -32,6 +32,8 @@ Ou seja, o Pull Request de **BACKEND** deverá ser criado a partir do fork de vo
 
 E portanto o Pull Request de **FRONTEND** deverá ser criado a partir do fork de vocês do repositório base de FRONTEND desse desafio, com destino ao [repositório base de FRONTEND desse desafio](https://github.com/cubos-academy/front-integral-m05-desafio-t06).
 
+---
+
 <b>[Figma Desafio M05 - Sprint 1](https://www.figma.com/file/Gpl5YlCj17jJ99dT3LqV6U/M05-SPRINT-01?node-id=410%3A47347)</b>
 
 <br>
@@ -210,8 +212,6 @@ ________________________________________________________________________________
 </details>
 
 </details>
-
----
 
 <b>[Figma Desafio M05 - Sprint 2](https://www.figma.com/file/QC6OOO8qc7ZP2kLuybs4Wh/M05-SPRINT-02)</b>
 
